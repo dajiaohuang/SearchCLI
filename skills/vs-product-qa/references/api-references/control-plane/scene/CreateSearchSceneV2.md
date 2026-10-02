@@ -78,9 +78,9 @@ message PerDatasetConfig {
   PersonalizedRecall PersonalizedRecallConfig = 16;
   optional bool EnableRerankWithHot = 17;
   RerankConfig RerankConfig = 18;
-  rule.BoostBuryCondConfig BoostBuryCondConfig = 19;
+  rule.BoostBuryCondConfigV2 BoostBuryCondConfig = 19;
   SortRulesConfig SortRulesConfig = 20;
-  rule.ShuffleConfig ShuffleConfig = 21;
+  rule.ShuffleConfigV2 ShuffleConfig = 21;
   ServingControlConfig ServingControlConfig = 22;
   CorrectionConfigV2 CorrectionConfig = 23;
   SynonymConfigV2 SynonymConfig = 24;
@@ -108,10 +108,11 @@ message FilterConfigV2 {
 
   optional string Name = 2;
   google.protobuf.Struct Config = 3;
+  recommend.ItemTypeFilter ItemTypeFilter = 4;
 }
 
 message AuxiliaryPoolsConfig {
-  repeated dataset.DatasetFilter Pools = 1;
+  repeated search_scene.DatasetFilter Pools = 1;
 }
 
 message PersonalizedRecall {
@@ -127,16 +128,16 @@ message RerankConfig {
   RerankDoubaoConfig RerankDoubaoConfig = 4;
 }
 
-message BoostBuryCondConfig {
-  repeated BoostBuryCondRule Rules = 2;
+message BoostBuryCondConfigV2 {
+  repeated BoostBuryCondRuleV2 Rules = 2;
 }
 
 message SortRulesConfig {
   repeated SortRule Rules = 1;
 }
 
-message ShuffleConfig {
-  repeated ShuffleRule Rules = 1;
+message ShuffleConfigV2 {
+  repeated ShuffleRuleV2 Rules = 1;
 }
 
 message ServingControlConfig {
@@ -184,8 +185,8 @@ message RerankDoubaoConfig {
   string Instruction = 2;
 }
 
-message BoostBuryCondRule {
-  uint32 ID = 1;
+message BoostBuryCondRuleV2 {
+  uint32 Id = 1;
   bool Enable = 2;
   string Name = 3;
   google.protobuf.Struct Config = 4;
@@ -199,11 +200,11 @@ message SortRule {
   optional bool Enable = 3;
 }
 
-message ShuffleRule {
+message ShuffleRuleV2 {
 
-  uint32 ID = 1;
+  uint32 Id = 1;
 
-  bool Disable = 2;
+  bool Enable = 2;
 
   string Name = 3;
 
@@ -217,9 +218,7 @@ message ShuffleRule {
 
   string ShuffleType = 9;
 
-  google.protobuf.Struct ShuffleExpr = 10;
-
-  int64 RecallMax = 11;
+  google.protobuf.Struct ShuffleExpression = 10;
 }
 
 message ServingControlV2 {
@@ -231,9 +230,9 @@ message ServingControlV2 {
   TextSearchConfig TextSearchConfig = 21;
   AuxiliaryPoolsConfig AuxiliaryPoolsConfig = 22;
   SortRulesConfig SortRulesConfig = 23;
-  rule.ShuffleConfig ShuffleConfig = 24;
+  rule.ShuffleConfigV2 ShuffleConfig = 24;
   FilterConfigV2 FilterConfig = 25;
-  rule.BoostBuryCondConfig BoostBuryCondConfig = 26;
+  rule.BoostBuryCondConfigV2 BoostBuryCondConfig = 26;
   RelevanceCutoffConfig RelevanceCutoffConfig = 27;
 }
 
@@ -324,9 +323,10 @@ message NumberRange {
 | `Config.PerDatasetConfigs[].PersonalizedRecallConfig` | PersonalizedRecall | See service validation | Personalized recall config. |
 | `Config.PerDatasetConfigs[].EnableRerankWithHot` | bool | No | Enable rerank with hot. |
 | `Config.PerDatasetConfigs[].RerankConfig` | RerankConfig | See service validation | Rerank config. |
-| `Config.PerDatasetConfigs[].BoostBuryCondConfig` | BoostBuryCondConfig | See service validation | Boost bury cond config. |
+| `Config.PerDatasetConfigs[].RerankConfig.RerankModel` | string | See service validation | Rerank model. Enum: `gte-rerank` / `doubao-rerank`. |
+| `Config.PerDatasetConfigs[].BoostBuryCondConfig` | BoostBuryCondConfigV2 | See service validation | Boost bury cond config. |
 | `Config.PerDatasetConfigs[].SortRulesConfig` | SortRulesConfig | See service validation | Sort rules config. |
-| `Config.PerDatasetConfigs[].ShuffleConfig` | ShuffleConfig | See service validation | Shuffle config. |
+| `Config.PerDatasetConfigs[].ShuffleConfig` | ShuffleConfigV2 | See service validation | Shuffle config. |
 | `Config.PerDatasetConfigs[].ServingControlConfig` | ServingControlConfig | See service validation | Serving control config. |
 | `Config.PerDatasetConfigs[].CorrectionConfig` | CorrectionConfigV2 | See service validation | Correction config. |
 | `Config.PerDatasetConfigs[].SynonymConfig` | SynonymConfigV2 | See service validation | Synonym config. |
@@ -356,14 +356,38 @@ message NumberRange {
 | `DraftConfig.PerDatasetConfigs[].PersonalizedRecallConfig` | PersonalizedRecall | See service validation | Personalized recall config. |
 | `DraftConfig.PerDatasetConfigs[].EnableRerankWithHot` | bool | No | Enable rerank with hot. |
 | `DraftConfig.PerDatasetConfigs[].RerankConfig` | RerankConfig | See service validation | Rerank config. |
-| `DraftConfig.PerDatasetConfigs[].BoostBuryCondConfig` | BoostBuryCondConfig | See service validation | Boost bury cond config. |
+| `DraftConfig.PerDatasetConfigs[].RerankConfig.RerankModel` | string | See service validation | Rerank model. Enum: `gte-rerank` / `doubao-rerank`. |
+| `DraftConfig.PerDatasetConfigs[].BoostBuryCondConfig` | BoostBuryCondConfigV2 | See service validation | Boost bury cond config. |
 | `DraftConfig.PerDatasetConfigs[].SortRulesConfig` | SortRulesConfig | See service validation | Sort rules config. |
-| `DraftConfig.PerDatasetConfigs[].ShuffleConfig` | ShuffleConfig | See service validation | Shuffle config. |
+| `DraftConfig.PerDatasetConfigs[].ShuffleConfig` | ShuffleConfigV2 | See service validation | Shuffle config. |
 | `DraftConfig.PerDatasetConfigs[].ServingControlConfig` | ServingControlConfig | See service validation | Serving control config. |
 | `DraftConfig.PerDatasetConfigs[].CorrectionConfig` | CorrectionConfigV2 | See service validation | Correction config. |
 | `DraftConfig.PerDatasetConfigs[].SynonymConfig` | SynonymConfigV2 | See service validation | Synonym config. |
 | `DraftConfig.PerDatasetConfigs[].FacetConfig` | FacetConfig | See service validation | Facet config. |
 | `DraftConfig.PerDatasetConfigs[].RelevanceCutoffConfig` | RelevanceCutoffConfig | See service validation | Relevance cutoff config. |
+
+## Field Semantics and Validation Notes
+
+This API creates a search scene with service-generated default `SearchSceneConfigV2`. The create request does not accept a `Config` payload, so it cannot set parent/variant item hierarchy or other dataset-level search configuration at creation time. Create the scene first, then call `PublishSearchSceneV2` through `vs search scene update` to switch parent/variant scope or publish other scene config changes. The returned `Config` and `DraftConfig` fields use the same enum-like string values and field-reference constraints as the publish API. For the complete config payload contract, see [PublishSearchSceneV2](./PublishSearchSceneV2.md#field-semantics-and-validation-notes).
+
+| Field | Constraint | Notes |
+| --- | --- | --- |
+| `Name` | non-empty | Search scene name. |
+| `DryRun` | `true` or `false` | `true` only validates the request and dependencies; it does not create or publish the scene. |
+| `Status` | `unpublished`, `published` | Response field. Newly created scenes are initialized through service behavior. |
+| `Config.PerDatasetConfigs[].DatasetId` | exact dataset ID | Returned dataset-level config is keyed by this field. |
+
+Key `SearchSceneConfigV2` string values include:
+
+- `OverviewConfig.Mode`: `ondemand`, `always`
+- `TextSearchConfig.Mode`: `balanced`, `semantic_priority`, `keyword_priority`, `user_defined`
+- `TextSearchConfig.UserDefinedRecallMode`: `keyword_semantic`, `keyword_only`, `semantic_only`
+- `ImageSearchConfig.InstructionType`: `preset_image`, `preset_item`, `custom`
+- `PersonalizedRecallConfig.Mode`: `strong`, `weak`
+- `RerankConfig.RerankModel`: `gte-rerank`, `doubao-rerank`
+- `CorrectionConfig.Mode`: `auto`, `suggestion_only`
+- `CorrectionConfig.MatchMode`: `exact`, `partial`
+- `RelevanceCutoffConfig.Rules[].Mode`: `static`, `relative`
 
 ## Error Codes
 

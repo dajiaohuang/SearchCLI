@@ -4,7 +4,12 @@
 import { spawnSync } from 'node:child_process';
 import { createInterface } from 'node:readline/promises';
 import { parseArgs } from 'node:util';
-import { hasHelpFlag, isDomainHelpRequest, renderUsageBlock } from '../core/help-utils';
+import {
+  hasHelpFlag,
+  isDomainHelpRequest,
+  renderUsageBlock,
+  withOpenApiReferenceHint
+} from '../core/help-utils';
 import { ApiRequestError } from '../core/http';
 import { printOutput } from '../core/output-format';
 import type { ServiceConfigInput } from '../core/service-config';
@@ -533,7 +538,7 @@ async function classifyAuthStatus(defaults: ResolvedCliDefaults): Promise<AuthSt
       status: 'ok',
       reason: null,
       reasonDetail: null,
-      serviceProbe: { ok: true, detail: `GetBillingOrder succeeded (project=${defaults.projectName})` }
+      serviceProbe: { ok: true, detail: `GetBillingOrderV2 succeeded (project=${defaults.projectName})` }
     };
   } catch (error) {
     const detail = error instanceof Error ? error.message.split('\n')[0] : String(error);
@@ -792,7 +797,7 @@ export async function runDoctorCommand(options: DoctorOptions = {}): Promise<voi
         timeoutMs: Math.min(resolved.timeoutMs, 5000),
         suppressOutput: true
       });
-      auth = { ok: true, detail: `GetBillingOrder succeeded (project=${resolved.projectName})` };
+      auth = { ok: true, detail: `GetBillingOrderV2 succeeded (project=${resolved.projectName})` };
     } catch (error) {
       auth = {
         ok: false,
@@ -837,6 +842,9 @@ export async function runPlatformDomainFromArgv(domain: string, argv: string[]):
     case 'auth':
       await runAuthCli(argv);
       return true;
+    case 'profile':
+      printProfileRedirectHelp(argv);
+      return true;
     case 'llm':
       await runLlmCli(argv);
       return true;
@@ -848,13 +856,49 @@ export async function runPlatformDomainFromArgv(domain: string, argv: string[]):
   }
 }
 
+// `profile` is not a command; credential profiles live under `vs auth`.
+// Guide users (and agents) to the real entry points instead of a bare
+// "Unknown command" error.
+function printProfileRedirectHelp(argv: string[]): void {
+  const sub = argv[0];
+  const mapped: Record<string, string> = {
+    list: 'vs auth list',
+    ls: 'vs auth list',
+    status: 'vs auth status',
+    show: 'vs auth status',
+    use: 'vs auth use <profile>',
+    switch: 'vs auth use <profile>',
+    add: 'vs auth login',
+    login: 'vs auth login',
+    create: 'vs auth login',
+    remove: 'vs auth logout',
+    delete: 'vs auth logout',
+    logout: 'vs auth logout'
+  };
+  const suggestion = sub ? mapped[sub.toLowerCase()] : undefined;
+  const lines = [
+    "`vs profile` is not a command. Credential profiles are managed under `vs auth`."
+  ];
+  if (suggestion) {
+    lines.push(`Did you mean: ${suggestion}`);
+  }
+  lines.push('Common commands:');
+  lines.push('  vs auth list             List configured profiles');
+  lines.push('  vs auth status           Show the active profile and its config');
+  lines.push('  vs auth use <profile>    Switch the active profile');
+  lines.push('  vs auth login            Add or update a profile');
+  lines.push('Run `vs auth --help` for details.');
+  console.error(lines.join('\n'));
+  process.exitCode = 1;
+}
+
 export function printPlatformDomainsHelp(): void {
   const publicLines = [
     'vs auth login|import-env|status|logout|list|use',
     'vs llm login|import-env|status|logout',
     'vs doctor'
   ];
-  console.log(['PLATFORM COMMANDS', renderUsageBlock(publicLines)].join('\n'));
+  console.log(withOpenApiReferenceHint(['PLATFORM COMMANDS', renderUsageBlock(publicLines)].join('\n')));
 }
 
 function printDomainHelp(domain: string): void {
@@ -881,7 +925,7 @@ function printDomainHelp(domain: string): void {
   vs doctor [--project-name <name>] [--region <region>] [--base-url <url>] [--control-plane-base-url <url>] [--data-plane-base-url <url>] [--ak <id>] [--sk <secret>] [--timeout-ms <ms>] [--profile <name>] [--store auto|keychain|file|ephemeral] [--format <format>] [--jq <selector>] [--output <path>]`
   };
 
-  console.log(helpByDomain[domain] ?? `Unknown domain: ${domain}`);
+  console.log(withOpenApiReferenceHint(helpByDomain[domain] ?? `Unknown domain: ${domain}`));
 }
 
 async function runAuthCli(argv: string[]): Promise<void> {

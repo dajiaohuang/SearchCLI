@@ -52,6 +52,7 @@ export interface DatasetIngestWorkflowOptions extends WorkflowServiceOptions {
   abnormalImagePolicy?: string;
   abnormalVideoPolicy?: string;
   videoAutoDelete?: boolean;
+  postPaidType?: string;
   schemaWaitTimeoutMs?: number;
   schemaPollIntervalMs?: number;
   dryRun?: boolean;
@@ -83,7 +84,7 @@ interface DatasetIngestV2ExecutionResult {
 }
 
 import { isUserEventDatasetType } from '../core/types';
-import { toInteger, printResult, isRecord, parseDatasetTypeV2Value, parseDatasetThemeValue, INFER_SCHEMA_DATASET_TYPES, CREATE_DATASET_TYPES } from './product-commands';
+import { toInteger, printResult, isRecord, parseDatasetTypeV2Value, parseDatasetThemeValue, parsePostPaidTypeValue, INFER_SCHEMA_DATASET_TYPES, CREATE_DATASET_TYPES } from './product-commands';
 
 export async function runAppDatasetBindWorkflowCommand(options: AppDatasetBindWorkflowOptions): Promise<void> {
   console.warn("Warning: 'vs app dataset bind' is deprecated; use 'vs app attach-dataset' instead.");
@@ -177,12 +178,12 @@ export async function runAppDatasetBindWorkflowCommand(options: AppDatasetBindWo
   }
 
   if (options.onlineConfig) {
-    const onlineConfigAction = getConsoleTopAction('UpsertAppOnlineConfig');
+    const onlineConfigAction = getConsoleTopAction('PublishAppOnlineConfigV2');
     if (!onlineConfigAction) {
-      throw new Error('Missing console-top mapping for UpsertAppOnlineConfig.');
+      throw new Error('Missing console-top mapping for PublishAppOnlineConfigV2.');
     }
     const onlineConfigPayload = compactObject({
-      AppID: options.applicationId,
+      ApplicationId: options.applicationId,
       Config: await loadJsonInput(options.onlineConfig),
       ProjectName: projectName
     });
@@ -397,7 +398,7 @@ async function executeDatasetIngestV2Command(options: DatasetIngestWorkflowOptio
     await sleep(Math.min(pollIntervalMs, Math.max(0, deadline - Date.now())));
   }
   if (!inferResult) throw new Error(`Timed out waiting for schema inference task ${taskId}.`);
-  steps.push({ step: 'poll_infer_result', ok: true, detail: 'status=success' });
+  steps.push({ step: 'poll_infer_result', ok: true, detail: 'status=succeeded' });
 
   const processConfig = (options.abnormalImagePolicy !== undefined || options.abnormalVideoPolicy !== undefined || options.videoAutoDelete !== undefined)
     ? compactObject({
@@ -416,6 +417,7 @@ async function executeDatasetIngestV2Command(options: DatasetIngestWorkflowOptio
     Theme: normalizedTheme,
     ProcessConfig: processConfig,
     FieldDescMap: inferResult.FieldDescMap,
+    PostPaidType: parsePostPaidTypeValue(options.postPaidType),
     DryRun: options.dryRun === true ? true : undefined,
     ProjectName: projectName
   });
@@ -477,7 +479,7 @@ function readStatus(value: unknown): 'processing' | 'success' | 'failed' {
   }
   if (typeof value === 'string') {
     const normalized = value.trim().toLowerCase();
-    if (normalized === 'success' || normalized.endsWith('_success')) return 'success';
+    if (normalized === 'succeeded' || normalized.endsWith('_succeeded')) return 'success';
     if (normalized === 'failed' || normalized.endsWith('_failed')) return 'failed';
   }
   return 'processing';

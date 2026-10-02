@@ -10,9 +10,8 @@ export default class DatasetCreate extends Command {
     'Create a Viking dataset via V2 CreateDatasetV2. For plan-driven onboarding, prefer `--data @dataset-create.json` so Schema, DataFieldConfig, and FieldDescMap stay together; use the inline flags for the manual schema path.';
 
   static override examples = [
-    '<%= config.bin %> dataset create --name demo-items --type item --schema-json @schema.json',
-    '<%= config.bin %> dataset create --name demo-items --type item --schema-json @schema.json --field-desc-map @field-desc-map.json --industry ecommerce --dry-run',
     '<%= config.bin %> dataset create --name demo-mm --type multi_modal --theme e_commerce --schema-json @schema.json --industry ecommerce --language zh --abnormal-image-policy skip',
+    '<%= config.bin %> dataset create --name demo-behavior --type user_event --schema-json @schema.json',
     '<%= config.bin %> dataset create --data @dataset-create.json'
   ];
 
@@ -57,6 +56,11 @@ export default class DatasetCreate extends Command {
     'field-desc-map': Flags.string({
       description: 'Inline JSON, @file path, or JSON file path for FieldDescMap (field path -> description).'
     }),
+    'post-paid-type': Flags.string({
+      description:
+        'Post-paid tier for post-paid billing instances: standard|premium. Post-paid instances must set this; omit for non-post-paid (none).',
+      options: ['standard', 'premium', 'none']
+    }),
     'project-name': Flags.string({
       description: 'Viking project name when the API requires project scoping.'
     })
@@ -87,6 +91,7 @@ export default class DatasetCreate extends Command {
       videoAutoDelete: flags['video-auto-delete'],
       dryRun: flags['dry-run'],
       fieldDescMap: flags['field-desc-map'],
+      postPaidType: flags['post-paid-type'],
       projectName: flags['project-name']
     });
   }
