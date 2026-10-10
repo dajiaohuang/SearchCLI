@@ -42,9 +42,11 @@ This is a workflow-oriented routing guide, not a full API reference. SearchCLI s
 | boost, bury, promote, suppress, weight up, weight down | Run `search scene update` and modify `Config.PerDatasetConfigs[].BoostBuryCondConfig.Rules[]` |
 | sort by field, field-based ranking | Run `search scene update` and modify `Config.PerDatasetConfigs[].SortRulesConfig.Rules[]` |
 | diversify results, avoid too many similar items, shuffle results | Run `search scene update` and modify `Config.PerDatasetConfigs[].ShuffleConfig.Rules[]` |
-| synonyms, equivalent words, alternate query words, 同义词 | If the request involves binding/uploading/importing a synonym dictionary, use the Dictionary Binding Workflow below; otherwise run `search scene update` and modify `Config.PerDatasetConfigs[].SynonymConfig.DictIds` |
+| synonyms, composite synonyms, equivalent words, alternate query words, 同义词, 复合同义词 | If the request involves binding/uploading/importing a synonym dictionary, use the Dictionary Binding Workflow below; otherwise run `search scene update` and modify `Config.PerDatasetConfigs[].SynonymConfig.DictIds` |
 | guess-you-want-to-search, suggested queries, search suggestions, 猜你想搜 | If the request involves binding/uploading/importing a suggestion dictionary, use the Dictionary Binding Workflow below; otherwise run `search scene update` and modify `Config.WantToSearchConfig` |
+| guess-you-want-to-search blacklist, suggested-query blacklist, 猜你想搜黑名单 | If the request involves binding/uploading/importing a suggestion blacklist dictionary, use the Dictionary Binding Workflow below; otherwise run `search scene update` and modify `Config.WantToSearchConfig.BlacklistDictIds` |
 | query completion, autocomplete, typeahead, 搜索补全 | If the request involves binding/uploading/importing a completion dictionary, use the Dictionary Binding Workflow below; otherwise run `search scene update` and modify `Config.QueryCompletionConfig` |
+| query completion blacklist, autocomplete blacklist, typeahead blacklist, 搜索补全黑名单 | If the request involves binding/uploading/importing a completion blacklist dictionary, use the Dictionary Binding Workflow below; otherwise run `search scene update` and modify `Config.QueryCompletionConfig.BlacklistDictIds` |
 | search-term correction, spell correction, typo correction, 搜索词纠错 | If the request involves binding/uploading/importing a correction-exemption dictionary, use the Dictionary Binding Workflow below; otherwise run `search scene update` and modify `Config.PerDatasetConfigs[].CorrectionConfig` |
 | search result facet stats, facet aggregation, 搜索结果分类统计 | Run `search scene update` and modify `Config.PerDatasetConfigs[].FacetConfig` |
 | trigger summary, search overview, 触发摘要 | Run `search scene update` and modify `Config.OverviewConfig` |
@@ -73,15 +75,17 @@ Common V2 serving-control override fields:
 
 ## Dictionary Binding Workflow
 
-If the request involves associating/uploading/importing/binding a dictionary for synonyms, query recommendation, query completion, or search-term correction, use this workflow.
+If the request involves associating/uploading/importing/binding a dictionary for synonyms, query recommendation, query completion, their blacklist variants, or search-term correction, use this workflow.
 
 First, determine the dictionary `Type` from the target config area:
 
 | Target config area | Dict Type | Scene config field |
 | --- | --- | --- |
-| SynonymConfig (同义词) | `bidirection_synonyms` or `unidirection_synonyms` | `Config.PerDatasetConfigs[].SynonymConfig.DictIds` |
+| SynonymConfig (同义词/复合同义词) | `bidirection_synonyms`, `unidirection_synonyms`, `bidirection_composite_synonyms`, or `unidirection_composite_synonyms` | `Config.PerDatasetConfigs[].SynonymConfig.DictIds` |
 | WantToSearchConfig (猜你想搜) | `query_recommendation` | `Config.WantToSearchConfig.DictIds` |
+| WantToSearchConfig blacklist (猜你想搜黑名单) | `query_recommendation_blacklist` | `Config.WantToSearchConfig.BlacklistDictIds` |
 | QueryCompletionConfig (搜索补全) | `query_completion` | `Config.QueryCompletionConfig.DictIds` |
+| QueryCompletionConfig blacklist (搜索补全黑名单) | `query_completion_blacklist` | `Config.QueryCompletionConfig.BlacklistDictIds` |
 | CorrectionConfig (搜索词纠错) | `query_correction_exemption` | `Config.PerDatasetConfigs[].CorrectionConfig.DictIds` |
 
 Then branch based on whether the user provides a CSV/term file or an existing `DictId`.
@@ -93,7 +97,7 @@ Path A - user provides a CSV/term file:
 3. If the input needs validation, run `dict check-input` and stop on validation errors.
 4. Run `dict write-terms --dict-id <id> --file <file-path>` to import dictionary terms.
 5. Resolve the target `application-id`, `scene-id`, and, for dataset-level settings, `dataset-id` with `search scene get` before building the payload.
-6. Run `search scene update` and write the dictionary ID into the matching V2 `DictIds` field above. This command must publish through `PublishSearchSceneV2`.
+6. Run `search scene update` and write the dictionary ID into the matching V2 dictionary field above. This command must publish through `PublishSearchSceneV2`.
 7. Run `search scene get` to verify the dictionary ID is visible in the target scene config.
 
 Do not call `dict bind-scenes` / `BindDictToScenes` in this workflow. That API-level association does not replace publishing the target search scene configuration through `search scene update`.
@@ -101,7 +105,7 @@ Do not call `dict bind-scenes` / `BindDictToScenes` in this workflow. That API-l
 Path B - user provides an existing `DictId`:
 
 1. Resolve the target `application-id`, `scene-id`, and, for dataset-level settings, `dataset-id` with `search scene get` before building the payload.
-2. Run `search scene update` and write the dictionary ID into the matching V2 `DictIds` field above. This command must publish through `PublishSearchSceneV2`.
+2. Run `search scene update` and write the dictionary ID into the matching V2 dictionary field above. This command must publish through `PublishSearchSceneV2`.
 3. Run `search scene get` to verify the dictionary ID is visible in the target scene config.
 
 ## Usage Note

@@ -37,7 +37,7 @@ message Dict {
 | --- | --- | --- | --- |
 | `ProjectName` | string | See service validation | Project name. |
 | `DictIds[]` | array<string> | No | Dict ids. |
-| `Types[]` | array<string> | No | Types. |
+| `Types[]` | array<string> | No | Dictionary type filters. See Dictionary Type Values below. |
 
 ## Response Parameters
 
@@ -47,11 +47,25 @@ message Dict {
 | `Dicts[].ProjectName` | string | See service validation | Project name. |
 | `Dicts[].DictId` | string | See service validation | Dictionary ID. |
 | `Dicts[].Name` | string | See service validation | Name. |
-| `Dicts[].Type` | string | See service validation | Type. |
+| `Dicts[].Type` | string | See service validation | Dictionary type. See Dictionary Type Values below. |
 | `Dicts[].Description` | string | See service validation | Description. |
 | `Dicts[].CreatedAt` | int64 | See service validation | Created at. |
 | `Dicts[].UpdatedAt` | int64 | See service validation | Updated at. |
 | `Dicts[].UpdatedBy` | string | See service validation | Updated by. |
+
+## Dictionary Type Values
+
+| Value | Meaning |
+| --- | --- |
+| `query_recommendation` | Guess-you-want-to-search dictionary. |
+| `query_completion` | Query completion dictionary. |
+| `query_correction_exemption` | Search correction-exemption dictionary. |
+| `bidirection_synonyms` | Bidirectional synonym dictionary. |
+| `unidirection_synonyms` | Unidirectional synonym dictionary. |
+| `bidirection_composite_synonyms` | Bidirectional composite synonym dictionary. |
+| `unidirection_composite_synonyms` | Unidirectional composite synonym dictionary. |
+| `query_recommendation_blacklist` | Guess-you-want-to-search blacklist dictionary. |
+| `query_completion_blacklist` | Query completion blacklist dictionary. |
 
 ## Error Codes
 

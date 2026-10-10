@@ -48,6 +48,7 @@ message WantToSearchConfigV2 {
   repeated string DictIds = 5;
 
   optional bool EnableApiLog = 6;
+  repeated string BlacklistDictIds = 7;
 }
 
 message QueryCompletionConfigV2 {
@@ -58,6 +59,7 @@ message QueryCompletionConfigV2 {
   repeated string DictIds = 4;
 
   optional bool EnableApiLog = 5;
+  repeated string BlacklistDictIds = 6;
 }
 
 message OverviewConfig {
@@ -305,11 +307,13 @@ message NumberRange {
 | `Config.WantToSearchConfig.Enable` | bool | No | Enable. |
 | `Config.WantToSearchConfig.DictIds[]` | array<string> | No | Dict ids. |
 | `Config.WantToSearchConfig.EnableApiLog` | bool | No | Enable api log. |
+| `Config.WantToSearchConfig.BlacklistDictIds[]` | array<string> | No | Guess-you-want-to-search blacklist dictionary IDs. |
 | `Config.QueryCompletionConfig.SugMaxRecallNum` | int64 | See service validation | Sug max recall num. |
 | `Config.QueryCompletionConfig.SugMinNum` | int64 | See service validation | Sug min num. |
 | `Config.QueryCompletionConfig.Enable` | bool | No | Enable. |
 | `Config.QueryCompletionConfig.DictIds[]` | array<string> | No | Dict ids. |
 | `Config.QueryCompletionConfig.EnableApiLog` | bool | No | Enable api log. |
+| `Config.QueryCompletionConfig.BlacklistDictIds[]` | array<string> | No | Query completion blacklist dictionary IDs. |
 | `Config.OverviewConfig.Mode` | string | See service validation | Mode. |
 | `Config.OverviewConfig.TriggerPrompt` | string | See service validation | Trigger prompt. |
 | `Config.OverviewConfig.ContentPrompt` | string | See service validation | Content prompt. |
@@ -338,11 +342,13 @@ message NumberRange {
 | `DraftConfig.WantToSearchConfig.Enable` | bool | No | Enable. |
 | `DraftConfig.WantToSearchConfig.DictIds[]` | array<string> | No | Dict ids. |
 | `DraftConfig.WantToSearchConfig.EnableApiLog` | bool | No | Enable api log. |
+| `DraftConfig.WantToSearchConfig.BlacklistDictIds[]` | array<string> | No | Guess-you-want-to-search blacklist dictionary IDs. |
 | `DraftConfig.QueryCompletionConfig.SugMaxRecallNum` | int64 | See service validation | Sug max recall num. |
 | `DraftConfig.QueryCompletionConfig.SugMinNum` | int64 | See service validation | Sug min num. |
 | `DraftConfig.QueryCompletionConfig.Enable` | bool | No | Enable. |
 | `DraftConfig.QueryCompletionConfig.DictIds[]` | array<string> | No | Dict ids. |
 | `DraftConfig.QueryCompletionConfig.EnableApiLog` | bool | No | Enable api log. |
+| `DraftConfig.QueryCompletionConfig.BlacklistDictIds[]` | array<string> | No | Query completion blacklist dictionary IDs. |
 | `DraftConfig.OverviewConfig.Mode` | string | See service validation | Mode. |
 | `DraftConfig.OverviewConfig.TriggerPrompt` | string | See service validation | Trigger prompt. |
 | `DraftConfig.OverviewConfig.ContentPrompt` | string | See service validation | Content prompt. |

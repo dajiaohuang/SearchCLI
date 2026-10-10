@@ -2354,7 +2354,7 @@ COMMON FLAGS
         'vs dict get --dict-id <id> [service flags]',
         'vs dict list [--dict-ids <id1,id2>] [--types <type1,type2>] [service flags]',
         'vs dict delete --dict-id <id> [service flags]',
-        'vs dict check-input [--dict-id <id>] [--language <zh|en|ja>] [--type <type>] [--tos-bucket <bucket> --tos-key <key> | --entries @entries.json] [service flags]',
+        'vs dict check-input [--dict-id <id>] [--language <zh|en|ja|ko|hi>] [--type <type>] [--tos-bucket <bucket> --tos-key <key> | --entries @entries.json] [service flags]',
         'vs dict write-terms --dict-id <id> [--file ./terms.csv | --entries @entries.json] [service flags]',
         'vs dict bind-scenes --dict-id <id> --scenes @scenes.json [service flags]'
       ]
@@ -2704,7 +2704,9 @@ USAGE
 KEY FLAGS
   --name               Dictionary name.
   --type               Dictionary type. Allowed values: query_recommendation, query_completion,
-                       query_correction_exemption, bidirection_synonyms, unidirection_synonyms.
+                       query_correction_exemption, bidirection_synonyms, unidirection_synonyms,
+                       bidirection_composite_synonyms, unidirection_composite_synonyms,
+                       query_recommendation_blacklist, query_completion_blacklist.
   --description        Optional dictionary description.
   --enable-idempotent  When true, return the existing same-name dictionary instead of failing.
 
@@ -2755,7 +2757,11 @@ USAGE
 
 KEY FLAGS
   --dict-ids   Optional dictionary ID filter. Comma-separated or JSON array.
-  --types      Optional type filter. Comma-separated or JSON array.
+  --types      Optional type filter. Comma-separated or JSON array. Allowed values:
+               query_recommendation, query_completion, query_correction_exemption,
+               bidirection_synonyms, unidirection_synonyms, bidirection_composite_synonyms,
+               unidirection_composite_synonyms, query_recommendation_blacklist,
+               query_completion_blacklist.
 
 EXAMPLES
   vs dict list
@@ -2764,14 +2770,18 @@ EXAMPLES
     'check-input': `Validate dictionary entries before upload or append.
 
 USAGE
-  vs dict check-input [--dict-id <id>] [--language <zh|en|ja>] [--type <type>] [--tos-bucket <bucket> --tos-key <key> | --entries @entries.json] [service flags]
+  vs dict check-input [--dict-id <id>] [--language <zh|en|ja|ko|hi>] [--type <type>] [--tos-bucket <bucket> --tos-key <key> | --entries @entries.json] [service flags]
   vs dict check-input --data @dict-check.json [service flags]
 
 KEY FLAGS
   --dict-id      Existing dictionary ID. When provided, backend ignores --type and validates
                  against the existing dictionary type and accumulated entry count.
-  --language     Allowed values: zh, en, ja.
-  --type         Dictionary type when validating entries before creation.
+  --language     Allowed values: zh, en, ja, ko, hi.
+  --type         Dictionary type when validating entries before creation. Allowed values:
+                 query_recommendation, query_completion, query_correction_exemption,
+                 bidirection_synonyms, unidirection_synonyms, bidirection_composite_synonyms,
+                 unidirection_composite_synonyms, query_recommendation_blacklist,
+                 query_completion_blacklist.
   --entries      Inline JSON / @file / JSON file path for Entries[]. Example:
                  [{"Fields":["nike","耐克"]}]
   --tos-bucket   TOS bucket when validating by uploaded source file.

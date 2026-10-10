@@ -19,10 +19,12 @@ export default class DictCheckInput extends Command {
       description:
         'Existing dictionary ID. When present, backend validates against the existing dictionary type and count.'
     }),
-    language: Flags.string({ description: 'Validation language. Allowed values: zh, en, ja.' }),
+    language: Flags.string({ description: 'Validation language. Allowed values: zh, en, ja, ko, hi.' }),
     type: Flags.string({
       description:
-        'Dictionary type for pre-create validation. Allowed values: query_recommendation, query_completion, query_correction_exemption, bidirection_synonyms, unidirection_synonyms'
+        'Dictionary type for pre-create validation. Allowed values: query_recommendation, query_completion, ' +
+        'query_correction_exemption, bidirection_synonyms, unidirection_synonyms, bidirection_composite_synonyms, ' +
+        'unidirection_composite_synonyms, query_recommendation_blacklist, query_completion_blacklist'
     }),
     'tos-bucket': Flags.string({ description: 'TOS bucket when validating by uploaded source file.' }),
     'tos-key': Flags.string({ description: 'TOS key when validating by uploaded source file.' }),

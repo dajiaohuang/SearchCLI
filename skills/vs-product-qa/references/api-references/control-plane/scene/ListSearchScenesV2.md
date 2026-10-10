@@ -56,6 +56,7 @@ message WantToSearchConfigV2 {
   repeated string DictIds = 5;
 
   optional bool EnableApiLog = 6;
+  repeated string BlacklistDictIds = 7;
 }
 
 message QueryCompletionConfigV2 {
@@ -66,6 +67,7 @@ message QueryCompletionConfigV2 {
   repeated string DictIds = 4;
 
   optional bool EnableApiLog = 5;
+  repeated string BlacklistDictIds = 6;
 }
 
 message OverviewConfig {

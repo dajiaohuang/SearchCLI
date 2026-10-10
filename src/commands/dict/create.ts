@@ -19,7 +19,9 @@ export default class DictCreate extends Command {
     type: Flags.string({
       required: true,
       description:
-        'Dictionary type. Allowed values: query_recommendation, query_completion, query_correction_exemption, bidirection_synonyms, unidirection_synonyms'
+        'Dictionary type. Allowed values: query_recommendation, query_completion, query_correction_exemption, ' +
+        'bidirection_synonyms, unidirection_synonyms, bidirection_composite_synonyms, ' +
+        'unidirection_composite_synonyms, query_recommendation_blacklist, query_completion_blacklist'
     }),
     description: Flags.string({ description: 'Dictionary description.' }),
     'enable-idempotent': Flags.boolean({

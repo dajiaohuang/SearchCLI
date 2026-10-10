@@ -76,8 +76,8 @@ message DictInputErrFieldTermCount {
 | --- | --- | --- | --- |
 | `ProjectName` | string | See service validation | Project name. |
 | `DictId` | string | See service validation | Dictionary ID. |
-| `Language` | string | See service validation | Language. |
-| `Type` | string | See service validation | Type. |
+| `Language` | string | See service validation | Validation language. Allowed values: `zh`, `en`, `ja`, `ko`, `hi`; empty or invalid values are treated as `zh`. |
+| `Type` | string | See service validation | Dictionary type for pre-create validation. When `DictId` is present, the service uses the existing dictionary type. See Dictionary Type Values below. |
 | `TosBucket` | string | See service validation | Tos bucket. |
 | `TosKey` | string | See service validation | Tos key. |
 | `Entries[]` | array<DictEntry> | No | Entries. |
@@ -112,6 +112,20 @@ message DictInputErrFieldTermCount {
 | `Errors.ErrsFieldTermCount[].ExpectedMin` | uint64 | See service validation | Expected min. |
 | `Errors.ErrsFieldTermCount[].ExpectedMax` | uint64 | See service validation | Expected max. |
 | `Errors.ErrsFieldTermCount[].Actual` | uint64 | See service validation | Actual. |
+
+## Dictionary Type Values
+
+| Value | Meaning |
+| --- | --- |
+| `query_recommendation` | Guess-you-want-to-search dictionary. |
+| `query_completion` | Query completion dictionary. |
+| `query_correction_exemption` | Search correction-exemption dictionary. |
+| `bidirection_synonyms` | Bidirectional synonym dictionary. |
+| `unidirection_synonyms` | Unidirectional synonym dictionary. |
+| `bidirection_composite_synonyms` | Bidirectional composite synonym dictionary. |
+| `unidirection_composite_synonyms` | Unidirectional composite synonym dictionary. |
+| `query_recommendation_blacklist` | Guess-you-want-to-search blacklist dictionary. |
+| `query_completion_blacklist` | Query completion blacklist dictionary. |
 
 ## Error Codes
 
