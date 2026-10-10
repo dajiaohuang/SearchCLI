@@ -52,6 +52,7 @@ message WantToSearchConfigV2 {
   repeated string DictIds = 5;
 
   optional bool EnableApiLog = 6;
+  repeated string BlacklistDictIds = 7;
 }
 
 message QueryCompletionConfigV2 {
@@ -62,6 +63,7 @@ message QueryCompletionConfigV2 {
   repeated string DictIds = 4;
 
   optional bool EnableApiLog = 5;
+  repeated string BlacklistDictIds = 6;
 }
 
 message OverviewConfig {
@@ -291,11 +293,13 @@ message NumberRange {
 | `Config.WantToSearchConfig.Enable` | bool | No | Enable. |
 | `Config.WantToSearchConfig.DictIds[]` | array<string> | No | Dict ids. |
 | `Config.WantToSearchConfig.EnableApiLog` | bool | No | Enable api log. |
+| `Config.WantToSearchConfig.BlacklistDictIds[]` | array<string> | No | Guess-you-want-to-search blacklist dictionary IDs. |
 | `Config.QueryCompletionConfig.SugMaxRecallNum` | int64 | See service validation | Sug max recall num. |
 | `Config.QueryCompletionConfig.SugMinNum` | int64 | See service validation | Sug min num. |
 | `Config.QueryCompletionConfig.Enable` | bool | No | Enable. |
 | `Config.QueryCompletionConfig.DictIds[]` | array<string> | No | Dict ids. |
 | `Config.QueryCompletionConfig.EnableApiLog` | bool | No | Enable api log. |
+| `Config.QueryCompletionConfig.BlacklistDictIds[]` | array<string> | No | Query completion blacklist dictionary IDs. |
 | `Config.OverviewConfig.Mode` | string | See service validation | Mode. |
 | `Config.OverviewConfig.TriggerPrompt` | string | See service validation | Trigger prompt. |
 | `Config.OverviewConfig.ContentPrompt` | string | See service validation | Content prompt. |
@@ -384,9 +388,11 @@ These fields are encoded as strings. Do not send numeric enum codes.
 - For one dataset, `ShuffleConfig.Rules[].Id` values must be unique across the dataset-level shuffle config and all `ServingControlConfig.ServingControls[].ShuffleConfig` blocks.
 - For one dataset, `BoostBuryCondConfig.Rules[].Id` values must be unique across the dataset-level boost/bury config and all `ServingControlConfig.ServingControls[].BoostBuryCondConfig` blocks.
 - `WantToSearchConfig.DictIds[]` must reference existing dictionaries of type `query_recommendation`.
+- `WantToSearchConfig.BlacklistDictIds[]` must reference existing dictionaries of type `query_recommendation_blacklist`.
 - `QueryCompletionConfig.DictIds[]` must reference existing dictionaries of type `query_completion`.
+- `QueryCompletionConfig.BlacklistDictIds[]` must reference existing dictionaries of type `query_completion_blacklist`.
 - `CorrectionConfig.DictIds[]` must reference existing dictionaries of type `query_correction_exemption`.
-- `SynonymConfig.DictIds[]` must reference existing dictionaries of type `bidirection_synonyms` or `unidirection_synonyms`.
+- `SynonymConfig.DictIds[]` must reference existing dictionaries of type `bidirection_synonyms`, `unidirection_synonyms`, `bidirection_composite_synonyms`, or `unidirection_composite_synonyms`.
 - `FilterConfig.ItemTypeFilter` is only valid when the dataset schema has an ItemType business attribute and its paired ParentId business attribute; the ItemType field must be filterable.
 
 ### Shuffle Expression Shape
@@ -523,11 +529,13 @@ Do not encode a serving-control query trigger as `{"query":"golf shoes"}`. Do no
 | `Config.WantToSearchConfig.Enable` | bool | No | Enable. |
 | `Config.WantToSearchConfig.DictIds[]` | array<string> | No | Dict ids. |
 | `Config.WantToSearchConfig.EnableApiLog` | bool | No | Enable api log. |
+| `Config.WantToSearchConfig.BlacklistDictIds[]` | array<string> | No | Guess-you-want-to-search blacklist dictionary IDs. |
 | `Config.QueryCompletionConfig.SugMaxRecallNum` | int64 | See service validation | Sug max recall num. |
 | `Config.QueryCompletionConfig.SugMinNum` | int64 | See service validation | Sug min num. |
 | `Config.QueryCompletionConfig.Enable` | bool | No | Enable. |
 | `Config.QueryCompletionConfig.DictIds[]` | array<string> | No | Dict ids. |
 | `Config.QueryCompletionConfig.EnableApiLog` | bool | No | Enable api log. |
+| `Config.QueryCompletionConfig.BlacklistDictIds[]` | array<string> | No | Query completion blacklist dictionary IDs. |
 | `Config.OverviewConfig.Mode` | string | See service validation | Mode. |
 | `Config.OverviewConfig.TriggerPrompt` | string | See service validation | Trigger prompt. |
 | `Config.OverviewConfig.ContentPrompt` | string | See service validation | Content prompt. |
@@ -556,11 +564,13 @@ Do not encode a serving-control query trigger as `{"query":"golf shoes"}`. Do no
 | `DraftConfig.WantToSearchConfig.Enable` | bool | No | Enable. |
 | `DraftConfig.WantToSearchConfig.DictIds[]` | array<string> | No | Dict ids. |
 | `DraftConfig.WantToSearchConfig.EnableApiLog` | bool | No | Enable api log. |
+| `DraftConfig.WantToSearchConfig.BlacklistDictIds[]` | array<string> | No | Guess-you-want-to-search blacklist dictionary IDs. |
 | `DraftConfig.QueryCompletionConfig.SugMaxRecallNum` | int64 | See service validation | Sug max recall num. |
 | `DraftConfig.QueryCompletionConfig.SugMinNum` | int64 | See service validation | Sug min num. |
 | `DraftConfig.QueryCompletionConfig.Enable` | bool | No | Enable. |
 | `DraftConfig.QueryCompletionConfig.DictIds[]` | array<string> | No | Dict ids. |
 | `DraftConfig.QueryCompletionConfig.EnableApiLog` | bool | No | Enable api log. |
+| `DraftConfig.QueryCompletionConfig.BlacklistDictIds[]` | array<string> | No | Query completion blacklist dictionary IDs. |
 | `DraftConfig.OverviewConfig.Mode` | string | See service validation | Mode. |
 | `DraftConfig.OverviewConfig.TriggerPrompt` | string | See service validation | Trigger prompt. |
 | `DraftConfig.OverviewConfig.ContentPrompt` | string | See service validation | Content prompt. |

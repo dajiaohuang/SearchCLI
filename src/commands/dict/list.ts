@@ -21,7 +21,10 @@ export default class DictList extends Command {
     }),
     types: Flags.string({
       description:
-        'Comma-separated list or JSON array of dictionary types. Allowed values: query_recommendation, query_completion, query_correction_exemption, bidirection_synonyms, unidirection_synonyms'
+        'Comma-separated list or JSON array of dictionary types. Allowed values: query_recommendation, ' +
+        'query_completion, query_correction_exemption, bidirection_synonyms, unidirection_synonyms, ' +
+        'bidirection_composite_synonyms, unidirection_composite_synonyms, query_recommendation_blacklist, ' +
+        'query_completion_blacklist'
     }),
     'project-name': Flags.string({ description: 'Viking project name when the API requires project scoping.' })
   };
