@@ -19,16 +19,16 @@ SearchCLI 是 AI Search on Volcengine 的开放 CLI。
 ## 加入交流群
 
 <p align="center">
-  <strong>加入 SearchCLI 微信用户交流群</strong><br />
-  使用微信扫描下方二维码，与用户和维护者交流。<br />
-  <sub>二维码会定期更新；如已失效，请稍后查看最新版本。</sub>
+  <strong>关注 SearchCLI 微信公众号</strong><br />
+  使用微信扫描下方二维码，获取 SearchCLI 项目动态、使用指南和最新公告。<br />
+  <sub>欢迎通过公众号持续了解 SearchCLI 的更新。</sub>
 </p>
 
-<p align="center">
-  <a href="docs/assets/wechat-group-qr.jpg">
-    <img src="docs/assets/wechat-group-qr.jpg" alt="SearchCLI 微信用户交流群二维码" width="320" />
+<div align="center">
+  <a href="docs/assets/searchcli-wechat.jpg">
+    <img src="docs/assets/searchcli-wechat.jpg" alt="SearchCLI 微信公众号二维码" width="320" />
   </a>
-</p>
+</div>
 
 ## SearchCLI 是什么
 

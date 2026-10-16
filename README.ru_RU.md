@@ -19,16 +19,16 @@ SearchCLI — это открытый CLI для AI Search on Volcengine.
 ## Сообщество
 
 <p align="center">
-  <strong>Присоединяйтесь к группе пользователей SearchCLI в WeChat</strong><br />
-  Отсканируйте QR-код ниже в WeChat, чтобы общаться с пользователями и сопровождающими проекта.<br />
-  <sub>QR-код периодически обновляется. Если срок его действия истёк, вернитесь позже за актуальной версией.</sub>
+  <strong>Подпишитесь на официальный аккаунт SearchCLI в WeChat</strong><br />
+  Отсканируйте QR-код ниже в WeChat, чтобы получать новости проекта SearchCLI, руководства по использованию и объявления.<br />
+  <sub>Подпишитесь на официальный аккаунт, чтобы следить за обновлениями SearchCLI.</sub>
 </p>
 
-<p align="center">
-  <a href="docs/assets/wechat-group-qr.jpg">
-    <img src="docs/assets/wechat-group-qr.jpg" alt="QR-код группы пользователей SearchCLI в WeChat" width="320" />
+<div align="center">
+  <a href="docs/assets/searchcli-wechat.jpg">
+    <img src="docs/assets/searchcli-wechat.jpg" alt="QR-код официального аккаунта SearchCLI в WeChat" width="320" />
   </a>
-</p>
+</div>
 
 ## Что такое SearchCLI
 

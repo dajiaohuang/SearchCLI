@@ -19,16 +19,16 @@ SearchCLI ve kurulabilir `Viking skills` ile harici Agents veri onboarding yapab
 ## Topluluk
 
 <p align="center">
-  <strong>SearchCLI WeChat kullanıcı grubuna katılın</strong><br />
-  Kullanıcılar ve proje yöneticileriyle iletişim kurmak için aşağıdaki QR kodunu WeChat ile tarayın.<br />
-  <sub>QR kodu düzenli olarak yenilenir. Süresi dolmuşsa en güncel sürüm için daha sonra tekrar kontrol edin.</sub>
+  <strong>SearchCLI WeChat resmi hesabını takip edin</strong><br />
+  SearchCLI proje güncellemeleri, kullanım kılavuzları ve duyurular için aşağıdaki QR kodunu WeChat ile tarayın.<br />
+  <sub>SearchCLI güncellemelerini takip etmek için resmi hesabı izleyin.</sub>
 </p>
 
-<p align="center">
-  <a href="docs/assets/wechat-group-qr.jpg">
-    <img src="docs/assets/wechat-group-qr.jpg" alt="SearchCLI WeChat kullanıcı grubu QR kodu" width="320" />
+<div align="center">
+  <a href="docs/assets/searchcli-wechat.jpg">
+    <img src="docs/assets/searchcli-wechat.jpg" alt="SearchCLI WeChat resmi hesabı QR kodu" width="320" />
   </a>
-</p>
+</div>
 
 ## SearchCLI nedir
 

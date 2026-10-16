@@ -19,16 +19,16 @@ Con SearchCLI e i suoi `Viking skills` installabili, gli Agent esterni possono e
 ## Comunità
 
 <p align="center">
-  <strong>Unisciti al gruppo utenti SearchCLI su WeChat</strong><br />
-  Scansiona il codice QR qui sotto con WeChat per entrare in contatto con utenti e maintainer.<br />
-  <sub>Il codice QR viene aggiornato periodicamente. Se è scaduto, torna a controllare la versione più recente.</sub>
+  <strong>Segui l'account ufficiale WeChat di SearchCLI</strong><br />
+  Scansiona il codice QR qui sotto con WeChat per ricevere aggiornamenti del progetto SearchCLI, guide d'uso e annunci.<br />
+  <sub>Segui l'account ufficiale per restare aggiornato su SearchCLI.</sub>
 </p>
 
-<p align="center">
-  <a href="docs/assets/wechat-group-qr.jpg">
-    <img src="docs/assets/wechat-group-qr.jpg" alt="Codice QR del gruppo utenti SearchCLI su WeChat" width="320" />
+<div align="center">
+  <a href="docs/assets/searchcli-wechat.jpg">
+    <img src="docs/assets/searchcli-wechat.jpg" alt="Codice QR dell'account ufficiale WeChat di SearchCLI" width="320" />
   </a>
-</p>
+</div>
 
 ## Che cos'è SearchCLI
 
