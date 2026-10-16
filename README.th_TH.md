@@ -19,16 +19,16 @@ SearchCLI คือ CLI แบบเปิดสำหรับ AI Search on Vol
 ## ชุมชน
 
 <p align="center">
-  <strong>เข้าร่วมกลุ่มผู้ใช้ SearchCLI บน WeChat</strong><br />
-  สแกน QR code ด้านล่างด้วย WeChat เพื่อพูดคุยกับผู้ใช้และผู้ดูแลโครงการ<br />
-  <sub>QR code จะได้รับการอัปเดตเป็นระยะ หากหมดอายุแล้ว โปรดกลับมาตรวจสอบเวอร์ชันล่าสุด</sub>
+  <strong>ติดตามบัญชีทางการ SearchCLI บน WeChat</strong><br />
+  สแกน QR code ด้านล่างด้วย WeChat เพื่อรับข่าวสารโปรเจกต์ SearchCLI คู่มือการใช้งาน และประกาศล่าสุด<br />
+  <sub>ติดตามบัญชีทางการเพื่อติดตามการอัปเดตของ SearchCLI</sub>
 </p>
 
-<p align="center">
-  <a href="docs/assets/wechat-group-qr.jpg">
-    <img src="docs/assets/wechat-group-qr.jpg" alt="QR code กลุ่มผู้ใช้ SearchCLI บน WeChat" width="320" />
+<div align="center">
+  <a href="docs/assets/searchcli-wechat.jpg">
+    <img src="docs/assets/searchcli-wechat.jpg" alt="QR code บัญชีทางการ SearchCLI บน WeChat" width="320" />
   </a>
-</p>
+</div>
 
 ## SearchCLI คืออะไร
 

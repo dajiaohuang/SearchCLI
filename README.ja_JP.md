@@ -19,16 +19,16 @@ SearchCLI とインストール可能な `Viking skills` を組み合わせる�
 ## コミュニティ
 
 <p align="center">
-  <strong>SearchCLI WeChat ユーザーグループに参加</strong><br />
-  下の QR コードを WeChat でスキャンして、ユーザーやメンテナーと交流できます。<br />
-  <sub>QR コードは定期的に更新されます。期限切れの場合は、最新版を改めてご確認ください。</sub>
+  <strong>SearchCLI WeChat 公式アカウントをフォロー</strong><br />
+  下の QR コードを WeChat でスキャンして、SearchCLI のプロジェクト更新、利用ガイド、最新のお知らせを受け取れます。<br />
+  <sub>公式アカウントをフォローして、SearchCLI の更新情報をご確認ください。</sub>
 </p>
 
-<p align="center">
-  <a href="docs/assets/wechat-group-qr.jpg">
-    <img src="docs/assets/wechat-group-qr.jpg" alt="SearchCLI WeChat ユーザーグループの QR コード" width="320" />
+<div align="center">
+  <a href="docs/assets/searchcli-wechat.jpg">
+    <img src="docs/assets/searchcli-wechat.jpg" alt="SearchCLI WeChat 公式アカウントの QR コード" width="320" />
   </a>
-</p>
+</div>
 
 ## SearchCLI とは
 
